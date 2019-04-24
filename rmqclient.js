@@ -29,5 +29,6 @@ var eventHandler = (code) => {
 process.on('SIGINT', eventHandler);
 process.on('SIGTERM', eventHandler);
 process.on('SIGBREAK', eventHandler);
+process.on('EVE007', eventHandler);
 /*process.on('SIGKILL', eventHandler);
 process.on('SIGSTOP', eventHandler);*/

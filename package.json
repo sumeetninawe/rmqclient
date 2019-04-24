@@ -2,7 +2,7 @@
   "name": "rmqclient",
   "version": "1.0.0",
   "description": "RabbitMQ client for concept",
-  "main": "index.js",
+  "main": "rmqclient.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
