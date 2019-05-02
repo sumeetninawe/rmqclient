@@ -1,9 +1,15 @@
 var amqp = require('amqplib/callback_api');
 var os = require('os');
 var ipc = require('node-ipc');
+var childProcess = require('child_process');
 var channel;
 var q = 'events';
+var instanceId = '';
 
+childProcess.exec('curl http://169.254.169.254/latest/meta-data/instance-id', (err, stdout, stderr) => {
+    if(err) {throw err};
+    instanceId = stdout;
+});
 
 
 amqp.connect('amqp://admin:admin@sumeet.life:5672/', function(err, conn) {
@@ -24,6 +30,7 @@ amqp.connect('amqp://admin:admin@sumeet.life:5672/', function(err, conn) {
 var eventHandler = (code) => {
     console.log(`About to handle with code: ${code}`);
     var eveObject = {};
+    eveObject.instanceId = instanceId;
     eveObject.scode = code;
     eveObject.cCode = 'EXIT';
     eveObject.host = os.hostname();
