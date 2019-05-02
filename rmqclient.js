@@ -26,10 +26,10 @@ var eventHandler = (code) => {
 }
 
 //Exit Events
-process.on('SIGINT', eventHandler('SIGINT'));
-process.on('SIGTERM', eventHandler('SIGTERM'));
-process.on('SIGBREAK', eventHandler('SIGBREAK'));
-process.on('EVE007', eventHandler('EVE007'));
-process.on('exit', eventHandler('exit'));
+process.on('SIGINT', eventHandler);
+process.on('SIGTERM', eventHandler);
+process.on('SIGBREAK', eventHandler);
+process.on('EVE007', eventHandler);
+process.on('exit', eventHandler);
 /*process.on('SIGKILL', eventHandler);
 process.on('SIGSTOP', eventHandler);*/
