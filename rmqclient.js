@@ -20,15 +20,16 @@ var eventHandler = (code) => {
     eveObject.scode = code;
     eveObject.cCode = 'EXIT';
     eveObject.host = os.hostname();
-    eveObject.type = 'receiver';
+    eveObject.type = 'LinuxBox';
     channel.sendToQueue(q, Buffer.from(JSON.stringify(eveObject)));
     console.log(" [x] Sent %s", JSON.stringify(eveObject));
 }
 
 //Exit Events
-process.on('SIGINT', eventHandler);
-process.on('SIGTERM', eventHandler);
-process.on('SIGBREAK', eventHandler);
-process.on('EVE007', eventHandler);
+process.on('SIGINT', eventHandler('SIGINT'));
+process.on('SIGTERM', eventHandler('SIGTERM'));
+process.on('SIGBREAK', eventHandler('SIGBREAK'));
+process.on('EVE007', eventHandler('EVE007'));
+process.on('exit', eventHandler('exit'));
 /*process.on('SIGKILL', eventHandler);
 process.on('SIGSTOP', eventHandler);*/
