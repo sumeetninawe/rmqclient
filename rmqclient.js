@@ -9,7 +9,9 @@ var instanceId = '';
 childProcess.exec('curl http://169.254.169.254/latest/meta-data/instance-id', (err, stdout, stderr) => {
     if(err) {throw err};
     instanceId = stdout;
-    amqp.connect('amqp://admin:admin@sumeet.life:5672/', function(err, conn) {
+});
+
+amqp.connect('amqp://admin:admin@sumeet.life:5672/', function(err, conn) {
     conn.createChannel(function(err, ch) {
       channel = ch;
       ch.assertQueue(q, {durable: false});
@@ -23,7 +25,6 @@ childProcess.exec('curl http://169.254.169.254/latest/meta-data/instance-id', (e
       }, {noAck: true});
     });
   });
-});
 
 
 
