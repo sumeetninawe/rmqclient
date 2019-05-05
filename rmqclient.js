@@ -17,7 +17,7 @@ amqp.connect('amqp://admin:admin@sumeet.life:5672/', function(err, conn) {
     ch.assertQueue(q, {durable: false});
     console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q);
     ch.sendToQueue(q, Buffer.from('CONN'));
-    for(var i = 0; i < 5; i++){
+    for(var i = 0; i < 1; i++){
       eventHandler('CONN');
     }    
     ch.consume(q, function(msg) {
@@ -54,7 +54,7 @@ ipc.config.id = 'rmq-server';
 ipc.config.retry = 1500;
 ipc.config.silent = true;
 ipc.serve(() => ipc.server.on('eve007', (message) => {
-  for(var i = 0; i < 5; i++){
+  for(var i = 0; i < 1; i++){
     eventHandler('EVE007');
   } 
 }));
