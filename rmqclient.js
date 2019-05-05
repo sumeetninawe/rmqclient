@@ -9,23 +9,22 @@ var instanceId = '';
 childProcess.exec('curl http://169.254.169.254/latest/meta-data/instance-id', (err, stdout, stderr) => {
     if(err) {throw err};
     instanceId = stdout;
-    amqp.connect('amqp://admin:admin@sumeet.life:5672/', function(err, conn) {
-    conn.createChannel(function(err, ch) {
-      channel = ch;
-      ch.assertQueue(q, {durable: false});
-      console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q);
-      ch.sendToQueue(q, Buffer.from('CONN'));
-      for(var i = 0; i < 5; i++){
-        eventHandler('CONN');
-      }    
-      ch.consume(q, function(msg) {
-        console.log(" [x] Received %s", msg.content.toString());
-      }, {noAck: true});
-    });
-  });
 });
 
-
+amqp.connect('amqp://admin:admin@sumeet.life:5672/', function(err, conn) {
+  conn.createChannel(function(err, ch) {
+    channel = ch;
+    ch.assertQueue(q, {durable: false});
+    console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q);
+    ch.sendToQueue(q, Buffer.from('CONN'));
+    for(var i = 0; i < 5; i++){
+      eventHandler('CONN');
+    }    
+    ch.consume(q, function(msg) {
+      console.log(" [x] Received %s", msg.content.toString());
+    }, {noAck: true});
+  });
+});
 
 
 var eventHandler = (code) => {
